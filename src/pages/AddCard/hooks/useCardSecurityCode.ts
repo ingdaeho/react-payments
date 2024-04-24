@@ -1,18 +1,15 @@
-import { useCallback } from 'react';
+import { createRef, useCallback } from 'react';
 import { CardContext } from '../../../App';
-
-const SECURITY_CODE_MAX_LENGTH = 3;
 
 const useCardSecurityCode = () => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
   const { send } = CardContext.useActorRef();
 
+  const ref = createRef<HTMLInputElement>();
+
   const handleSecurityCode = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
-
-      const isNumber = !Number.isNaN(Number(value));
-      if (!isNumber || value.length > SECURITY_CODE_MAX_LENGTH) return;
 
       send({
         type: 'UPDATE_SECURITY_CODE',
@@ -23,6 +20,7 @@ const useCardSecurityCode = () => {
   );
 
   return {
+    ref,
     securityCode: cardState.securityCode,
     handleSecurityCode,
   };

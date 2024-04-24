@@ -1,9 +1,13 @@
-import { useCallback } from 'react';
+import { createRef, useCallback } from 'react';
 import { CardContext } from '../../../App';
+
+export const OWNER_NAME_MAX_LENGTH = 30;
 
 const useCardOwner = () => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
   const { send } = CardContext.useActorRef();
+
+  const ref = createRef<HTMLInputElement>();
 
   const handleOwner = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +22,7 @@ const useCardOwner = () => {
   );
 
   return {
+    ref,
     owner: cardState.owner,
     handleOwner,
   };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
@@ -22,6 +22,11 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
   const { selectBrand } = useCardBrands();
   const [showModal, setShowModal] = useState(true);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, monthRef, ownerRef, passwordRef] = Array.from({ length: 4 }).map(
+    createRef<HTMLInputElement>
+  );
+
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
@@ -33,11 +38,11 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
       </Header>
 
       <Card {...cardState} onClick={openModal} />
-      <CardNumbers />
-      <CardExpiration />
-      <CardOwner />
-      <CardSecurityCode />
-      <CardPassword />
+      <CardNumbers nextFieldRef={monthRef} />
+      <CardExpiration ref={monthRef} nextFieldRef={ownerRef} />
+      <CardOwner ref={ownerRef} />
+      <CardSecurityCode nextFieldRef={passwordRef} />
+      <CardPassword ref={passwordRef} />
 
       <div className='button-box'>
         <Button onClick={onNext}>다음</Button>
