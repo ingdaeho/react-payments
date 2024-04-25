@@ -1,13 +1,12 @@
 import { RefObject, forwardRef, useImperativeHandle } from 'react';
-import InputContainer from '../../../components/InputContainer/InputContainer';
 import useCardExpiration from '../hooks/useCardExpiration';
 import {
   EXPIRATION_MAX_LENGTH,
   isValidMonth,
   isValidYear,
 } from '../../../utils/validator';
-import Input from '../../../components/Input/Input';
 import useFocus from '../../../hooks/useFocus';
+import Input from '../../../components/Input/Index';
 
 interface Props {
   nextFieldRef: RefObject<HTMLInputElement>;
@@ -31,7 +30,7 @@ const CardExpiration = forwardRef<HTMLInputElement, Props>(
     });
 
     return (
-      <InputContainer label='만료일' className='w-50'>
+      <Input.Container label='만료일' className='w-50'>
         <div className='input-box'>
           <Input
             ref={refs[0]}
@@ -51,7 +50,7 @@ const CardExpiration = forwardRef<HTMLInputElement, Props>(
             maxLength={EXPIRATION_MAX_LENGTH}
           />
         </div>
-      </InputContainer>
+      </Input.Container>
     );
   }
 );

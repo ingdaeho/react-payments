@@ -6,7 +6,7 @@ interface Props extends ComponentPropsWithRef<'input'> {
   variant?: 'basic' | 'underline';
 }
 
-const Input = forwardRef(
+const InputComponent = forwardRef(
   (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
     const { type = 'text', variant = 'basic', className, ...rest } = props;
     return (
@@ -20,4 +20,4 @@ const Input = forwardRef(
   }
 );
 
-export default Input;
+export default InputComponent;

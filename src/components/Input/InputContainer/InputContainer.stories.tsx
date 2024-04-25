@@ -1,21 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import InputContainer from './InputContainer';
-import Input from '../Input/Input';
+import Input from '../Index';
 
-const meta: Meta<typeof InputContainer> = {
-  component: InputContainer,
+const meta: Meta<typeof Input.Container> = {
+  component: Input.Container,
   tags: ['autodocs'],
 };
 
 export default meta;
-type Story = StoryObj<typeof InputContainer>;
+export type Story = StoryObj<typeof Input.Container>;
 
 const Template: Story = {
   render: ({ label }) => {
     return (
-      <InputContainer label={label}>
+      <Input.Container label={label}>
         <Input />
-      </InputContainer>
+      </Input.Container>
     );
   },
 };
@@ -37,14 +36,14 @@ export const Password: Story = {
   },
   render: ({ label }) => {
     return (
-      <InputContainer label={label}>
+      <Input.Container label={label}>
         <div style={{ display: 'flex', gap: 6, width: '30%' }}>
           <Input className='w-15' type='password' />
           <Input className='w-15' type='password' />
           <Input className='w-15' type='password' />
           <Input className='w-15' type='password' />
         </div>
-      </InputContainer>
+      </Input.Container>
     );
   },
 };

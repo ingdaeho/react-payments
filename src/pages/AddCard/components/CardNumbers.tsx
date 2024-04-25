@@ -1,9 +1,8 @@
 import { RefObject } from 'react';
-import InputContainer from '../../../components/InputContainer/InputContainer';
 import useCardNumber from '../hooks/useCardNumber';
 import { CARD_NUMBER_MAX_LENGTH, isCardNumber } from '../../../utils/validator';
 import useFocus from '../../../hooks/useFocus';
-import Input from '../../../components/Input/Input';
+import Input from '../../../components/Input/Index';
 
 interface Props {
   nextFieldRef: RefObject<HTMLInputElement>;
@@ -33,7 +32,7 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
   });
 
   return (
-    <InputContainer label='카드 번호'>
+    <Input.Container label='카드 번호'>
       <div className='input-box'>
         <Input
           ref={refs[0]}
@@ -68,7 +67,7 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
           maxLength={CARD_NUMBER_MAX_LENGTH}
         />
       </div>
-    </InputContainer>
+    </Input.Container>
   );
 };
 

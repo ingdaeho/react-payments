@@ -1,12 +1,11 @@
 import { RefObject } from 'react';
-import Input from '../../../components/Input/Input';
-import InputContainer from '../../../components/InputContainer/InputContainer';
 import {
   SECURITY_CODE_MAX_LENGTH,
   isValidSecurityCode,
 } from '../../../utils/validator';
 import useCardSecurityCode from '../hooks/useCardSecurityCode';
 import useFocus from '../../../hooks/useFocus';
+import Input from '../../../components/Input/Index';
 
 interface Props {
   nextFieldRef: RefObject<HTMLInputElement>;
@@ -21,7 +20,7 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
   });
 
   return (
-    <InputContainer label='보안코드'>
+    <Input.Container label='보안코드'>
       <Input
         ref={ref}
         className='w-25'
@@ -30,7 +29,7 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
         onChange={handleSecurityCode}
         maxLength={SECURITY_CODE_MAX_LENGTH}
       />
-    </InputContainer>
+    </Input.Container>
   );
 };
 

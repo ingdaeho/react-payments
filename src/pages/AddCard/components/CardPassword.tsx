@@ -1,12 +1,11 @@
 import { forwardRef, useImperativeHandle } from 'react';
-import InputContainer from '../../../components/InputContainer/InputContainer';
 import useCardPassword from '../hooks/useCardPassword';
 import {
   PASSWORD_INPUT_MAX_LENGTH,
   isValidPassword,
 } from '../../../utils/validator';
-import Input from '../../../components/Input/Input';
 import useFocus from '../../../hooks/useFocus';
+import Input from '../../../components/Input/Index';
 
 const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   const { refs, password, handlePassword } = useCardPassword();
@@ -20,7 +19,7 @@ const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   useImperativeHandle(forwardedRef, () => firstInput.current!);
 
   return (
-    <InputContainer label='카드 비밀번호'>
+    <Input.Container label='카드 비밀번호'>
       <div style={{ display: 'flex', gap: 6 }}>
         <Input
           ref={refs[0]}
@@ -39,7 +38,7 @@ const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
         <div className='flex-center w-15'>•</div>
         <div className='flex-center w-15'>•</div>
       </div>
-    </InputContainer>
+    </Input.Container>
   );
 });
 

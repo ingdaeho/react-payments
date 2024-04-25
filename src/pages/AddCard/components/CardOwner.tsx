@@ -1,7 +1,6 @@
 import { forwardRef, useImperativeHandle } from 'react';
-import Input from '../../../components/Input/Input';
-import InputContainer from '../../../components/InputContainer/InputContainer';
 import useCardOwner, { OWNER_NAME_MAX_LENGTH } from '../hooks/useCardOwner';
+import Input from '../../../components/Input/Index';
 
 const CardOwner = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   const { ref, owner, handleOwner } = useCardOwner();
@@ -9,7 +8,7 @@ const CardOwner = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   useImperativeHandle(forwardedRef, () => ref.current!);
 
   return (
-    <InputContainer label='카드 소유자 이름(선택)'>
+    <Input.Container label='카드 소유자 이름(선택)'>
       <div className='input-relative'>
         <span className='owner-length'>
           {owner?.length} / {OWNER_NAME_MAX_LENGTH}
@@ -22,7 +21,7 @@ const CardOwner = forwardRef<HTMLInputElement>((_, forwardedRef) => {
           onChange={handleOwner}
         />
       </div>
-    </InputContainer>
+    </Input.Container>
   );
 });
 
