@@ -20,11 +20,11 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
   });
 
   return (
-    <Input.Container label='보안코드'>
+    <Input.Container label='보안코드' className='w-25'>
       <Input.InputBase
         ref={ref}
-        className='w-25'
         type='password'
+        error={!isValidSecurityCode(securityCode)}
         value={securityCode}
         onChange={handleSecurityCode}
         maxLength={SECURITY_CODE_MAX_LENGTH}

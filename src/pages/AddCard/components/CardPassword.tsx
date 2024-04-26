@@ -5,7 +5,7 @@ import {
   isValidPassword,
 } from '../../../utils/validator';
 import useFocus from '../../../hooks/useFocus';
-import {Input} from '../../../components/Input/InputContainer/InputContainer';
+import { Input } from '../../../components/Input/InputContainer/InputContainer';
 
 const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   const { refs, password, handlePassword } = useCardPassword();

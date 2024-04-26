@@ -1,8 +1,8 @@
 import { RefObject } from 'react';
+import { Input } from '@components/Input';
+import useFocus from '@hooks/useFocus';
+import { CARD_NUMBER_MAX_LENGTH, isCardNumber } from '@utils/validator';
 import useCardNumber from '../hooks/useCardNumber';
-import { CARD_NUMBER_MAX_LENGTH, isCardNumber } from '../../../utils/validator';
-import useFocus from '../../../hooks/useFocus';
-import { Input } from '../../../components/Input/InputContainer/InputContainer';
 
 interface Props {
   nextFieldRef: RefObject<HTMLInputElement>;
