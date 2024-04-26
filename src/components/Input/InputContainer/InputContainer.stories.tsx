@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Input from '../Index';
+import { Input } from '../Index';
 
 const meta: Meta<typeof Input.Container> = {
   component: Input.Container,

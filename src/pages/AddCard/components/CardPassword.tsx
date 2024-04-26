@@ -5,7 +5,7 @@ import {
   isValidPassword,
 } from '../../../utils/validator';
 import useFocus from '../../../hooks/useFocus';
-import Input from '../../../components/Input/Index';
+import {Input} from '../../../components/Input/InputContainer/InputContainer';
 
 const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   const { refs, password, handlePassword } = useCardPassword();
@@ -21,14 +21,16 @@ const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   return (
     <Input.Container label='카드 비밀번호'>
       <div style={{ display: 'flex', gap: 6 }}>
-        <Input
+        <Input.InputBase
+          className='w-15'
           ref={refs[0]}
           name={'first'}
           onChange={handlePassword}
           value={password.first}
           maxLength={PASSWORD_INPUT_MAX_LENGTH}
         />
-        <Input
+        <Input.InputBase
+          className='w-15'
           ref={refs[1]}
           name={'second'}
           onChange={handlePassword}

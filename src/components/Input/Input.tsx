@@ -1,14 +1,19 @@
 import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
 import classNames from 'classnames';
+import { useInputContext } from './useInput';
 
-interface Props extends ComponentPropsWithRef<'input'> {
+export interface Props extends ComponentPropsWithRef<'input'> {
   type?: ComponentPropsWithRef<'input'>['type'];
   variant?: 'basic' | 'underline';
+  error?: boolean;
 }
 
-const InputComponent = forwardRef(
-  (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
-    const { type = 'text', variant = 'basic', className, ...rest } = props;
+export const InputBase = forwardRef(
+  (
+    { type = 'text', variant = 'basic', error, className, ...rest }: Props,
+    ref: ForwardedRef<HTMLInputElement>
+  ) => {
+
     return (
       <input
         ref={ref}
@@ -20,4 +25,4 @@ const InputComponent = forwardRef(
   }
 );
 
-export default InputComponent;
+InputBase.displayName = '@Input/InputBase';

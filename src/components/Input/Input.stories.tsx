@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Input from './Index';
+import { Input } from './Index';
 import { WithTitle as Container } from './InputContainer/InputContainer.stories';
 
 const meta: Meta<typeof Input> = {

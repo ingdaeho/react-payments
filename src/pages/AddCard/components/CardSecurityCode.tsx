@@ -5,7 +5,7 @@ import {
 } from '../../../utils/validator';
 import useCardSecurityCode from '../hooks/useCardSecurityCode';
 import useFocus from '../../../hooks/useFocus';
-import Input from '../../../components/Input/Index';
+import { Input } from '../../../components/Input/InputContainer/InputContainer';
 
 interface Props {
   nextFieldRef: RefObject<HTMLInputElement>;
@@ -21,7 +21,7 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
 
   return (
     <Input.Container label='보안코드'>
-      <Input
+      <Input.InputBase
         ref={ref}
         className='w-25'
         type='password'

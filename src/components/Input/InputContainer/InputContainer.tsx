@@ -1,22 +1,39 @@
-import { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  PropsWithChildren,
+  useMemo,
+  useState,
+} from 'react';
 import classNames from 'classnames';
+import { InputContext } from '../Input.context';
+import { InputBase } from '../Input';
 
-interface Props extends ComponentPropsWithoutRef<'div'> {
+export interface Props extends ComponentPropsWithoutRef<'div'> {
   label?: string;
 }
 
-const InputContainer = ({
+export const Input = ({
   label,
   className,
   children,
   ...props
 }: PropsWithChildren<Props>) => {
+  const [hasError, setHasError] = useState(false);
+
+  const contextValue = useMemo(() => ({ hasError, setHasError }), [hasError]);
+
   return (
-    <div className={classNames('input-container', className)} {...props}>
-      {label && <span className='input-title'>{label}</span>}
-      {children}
-    </div>
+    <InputContext.Provider value={contextValue}>
+      <div className={'input-container'} {...props}>
+        {label && <span className='input-title'>{label}</span>}
+        <div className={classNames(className, { error: hasError })}>
+          {children}
+        </div>
+      </div>
+    </InputContext.Provider>
   );
 };
 
-export default InputContainer;
+Input.displayName = '@Input/Container';
+Input.Container = Input;
+Input.InputBase = InputBase;
