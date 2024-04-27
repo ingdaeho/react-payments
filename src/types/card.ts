@@ -13,4 +13,5 @@ export interface CardInfo {
 export interface Brand {
   label: string;
   color: string;
+  bankId: string[];
 }

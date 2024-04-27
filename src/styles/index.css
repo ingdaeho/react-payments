@@ -45,3 +45,8 @@ input {
 .relative-box {
   position: relative;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
