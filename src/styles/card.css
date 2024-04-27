@@ -40,6 +40,10 @@
   border-radius: 5px;
 }
 
+.small-card.error {
+  outline: 1.5px solid red;
+}
+
 .small-card__chip {
   width: 40px;
   height: 26px;

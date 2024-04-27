@@ -37,7 +37,11 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
         <span>카드추가</span>
       </Header>
 
-      <Card {...cardState} onClick={openModal} />
+      <Card
+        {...cardState}
+        error={!cardState.brand.label && cardState.numbers.fourth.length === 4}
+        onClick={openModal}
+      />
       <CardNumbers nextFieldRef={monthRef} />
       <CardExpiration ref={monthRef} nextFieldRef={ownerRef} />
       <CardOwner ref={ownerRef} />

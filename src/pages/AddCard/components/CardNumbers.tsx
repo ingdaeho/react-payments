@@ -1,6 +1,7 @@
 import { RefObject } from 'react';
 import { Input } from '@components/Input';
 import useFocus from '@hooks/useFocus';
+import { CardContext } from '../../../App';
 import { CARD_NUMBER_MAX_LENGTH, isCardNumber } from '@utils/validator';
 import useCardNumber from '../hooks/useCardNumber';
 
@@ -10,6 +11,7 @@ interface Props {
 
 const CardNumbers = ({ nextFieldRef }: Props) => {
   const { refs, cardNumbers, handleNumbers } = useCardNumber();
+  const { brand } = CardContext.useSelector(({ context }) => context.cardState);
 
   useFocus({
     isValid: isCardNumber(cardNumbers.first),
@@ -27,7 +29,7 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
   });
 
   useFocus({
-    isValid: isCardNumber(cardNumbers.fourth),
+    isValid: isCardNumber(cardNumbers.fourth) && Boolean(brand.label),
     focusTargetRef: nextFieldRef,
   });
 

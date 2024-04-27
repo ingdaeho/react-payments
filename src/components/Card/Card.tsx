@@ -1,9 +1,11 @@
+import classNames from 'classnames';
 import type { CardInfo } from '../../types';
 
 const MASK_START_INDEX = 2;
 
 interface Props extends CardInfo {
   size?: 'small' | 'big';
+  error?: boolean;
   onClick?: () => void;
 }
 
@@ -13,6 +15,7 @@ const Card = ({
   owner,
   expiration,
   size = 'small',
+  error,
   onClick,
 }: Props) => {
   const cardNumbers = Object.values(numbers)
@@ -24,7 +27,10 @@ const Card = ({
 
   return (
     <div className='card-box' onClick={onClick}>
-      <div className={`${size}-card`} style={{ backgroundColor: brand.color }}>
+      <div
+        className={classNames(`${size}-card`, { error })}
+        style={{ backgroundColor: brand.color }}
+      >
         <div className='card-top'>
           <span className='card-text'>{brand.label}</span>
         </div>
