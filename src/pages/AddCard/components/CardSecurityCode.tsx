@@ -26,19 +26,19 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
   });
 
   return (
-    <div>
-      <Input.Container label='보안코드' className='input-box w-25'>
-        <Input.Keypad
-          ref={ref}
-          type='password'
-          isValid={isValidSecurityCode}
-          onFocus={handleFocus}
-          onClick={handleClickKeypad}
-          maxLength={SECURITY_CODE_MAX_LENGTH}
-        />
+    <Input.Container label='보안코드' className='input-box w-25'>
+      <Input.Keypad
+        ref={ref}
+        type='password'
+        isValid={isValidSecurityCode}
+        onFocus={handleFocus}
+        onClick={handleClickKeypad}
+        maxLength={SECURITY_CODE_MAX_LENGTH}
+      />
+      <div className='flex'>
         <Tooltip icon={<HelpIcon />} message='보안코드 3자리' />
-      </Input.Container>
-    </div>
+      </div>
+    </Input.Container>
   );
 };
 
