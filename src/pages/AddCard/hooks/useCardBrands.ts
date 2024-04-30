@@ -2,8 +2,10 @@ import { useCallback, useEffect } from 'react';
 import { Brand } from '../../../types';
 import { CardContext } from '../../../App';
 import { CardBrandList } from '../components/BrandList';
+import { useDisclosure } from '@hooks/useDisclosure';
 
 export const useCardBrands = () => {
+  const [isOpened, handler] = useDisclosure(true);
   const { send } = CardContext.useActorRef();
   const { numbers, brand } = CardContext.useSelector(
     ({ context }) => context.cardState
@@ -12,8 +14,9 @@ export const useCardBrands = () => {
   const selectBrand = useCallback(
     (brand: Brand) => {
       send({ type: 'UPDATE_BRAND', payload: { key: 'brand', value: brand } });
+      handler.close();
     },
-    [send]
+    [handler, send]
   );
 
   const findLabelByNumbers = useCallback((first: string, second: string) => {
@@ -32,6 +35,8 @@ export const useCardBrands = () => {
   }, [brand.label, numbers]);
 
   return {
+    isOpened,
+    handler,
     selectBrand,
   };
 };

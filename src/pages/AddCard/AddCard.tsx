@@ -11,7 +11,6 @@ import { Modal } from '../../components/Modal/Modal';
 import { BrandList } from './components/BrandList';
 import { useCardBrands } from './hooks/useCardBrands';
 import { CardContext } from '../../App';
-import { useDisclosure } from '@hooks/useDisclosure';
 
 interface Props {
   onNext: () => void;
@@ -20,8 +19,7 @@ interface Props {
 
 const AddCard = ({ onNext, onGoBack }: Props) => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
-  const { selectBrand } = useCardBrands();
-  const [brandSelectModalOpened, brandSelectModalHandler] = useDisclosure(true);
+  const { isOpened, handler, selectBrand } = useCardBrands();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, monthRef, ownerRef, passwordRef] = Array.from({ length: 4 }).map(
@@ -38,7 +36,7 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
       <Card
         {...cardState}
         error={!cardState.brand.label && cardState.numbers[3].length === 4}
-        onClick={brandSelectModalHandler.open}
+        onClick={handler.open}
       />
       <CardNumbers nextFieldRef={monthRef} />
       <CardExpiration ref={monthRef} nextFieldRef={ownerRef} />
@@ -50,8 +48,8 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
         <Button onClick={onNext}>다음</Button>
       </div>
 
-      {brandSelectModalOpened && (
-        <Modal onClickDimmed={brandSelectModalHandler.close}>
+      {isOpened && (
+        <Modal onClickDimmed={handler.close}>
           <BrandList onClick={selectBrand} />
         </Modal>
       )}
