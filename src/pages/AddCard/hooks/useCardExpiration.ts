@@ -7,20 +7,14 @@ const useCardExpiration = () => {
 
   const refs = Array.from({ length: 2 }).map(createRef<HTMLInputElement>);
 
-  const handleExpirationDate = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value, name } = e.target;
+  const handleExpirationDate = useCallback(() => {
+    const value = refs.map((ref) => ref.current?.value || '');
 
-      send({
-        type: 'UPDATE_EXPIRATION_DATE',
-        payload: {
-          key: 'expiration',
-          value: { ...cardState.expiration, [name]: value },
-        },
-      });
-    },
-    [cardState.expiration, send]
-  );
+    send({
+      type: 'UPDATE_EXPIRATION_DATE',
+      payload: { key: 'expiration', value },
+    });
+  }, [refs, send]);
 
   return {
     expiration: cardState.expiration,

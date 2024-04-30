@@ -1,4 +1,4 @@
-import { ChangeEvent, createRef, useCallback } from 'react';
+import { createRef, useCallback } from 'react';
 import { CardContext } from '../../../App';
 
 const useCardNumber = () => {
@@ -7,20 +7,14 @@ const useCardNumber = () => {
 
   const refs = Array.from({ length: 4 }).map(createRef<HTMLInputElement>);
 
-  const handleNumbers = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { value, name } = e.currentTarget;
+  const handleNumbers = useCallback(() => {
+    const numbers = refs.map((ref) => ref.current?.value || '');
 
-      send({
-        type: 'UPDATE_CARD_NUMBER',
-        payload: {
-          key: 'numbers',
-          value: { ...cardState.numbers, [name]: value },
-        },
-      });
-    },
-    [cardState.numbers, send]
-  );
+    send({
+      type: 'UPDATE_CARD_NUMBER',
+      payload: { key: 'numbers', value: numbers },
+    });
+  }, [refs, send]);
 
   return {
     cardNumbers: cardState.numbers,

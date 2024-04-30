@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import { Input } from '@components/Input';
+import { Input, useVirtualKeypad } from '@components/Input';
 import useFocus from '@hooks/useFocus';
 import { CardContext } from '../../../App';
 import { CARD_NUMBER_MAX_LENGTH, isCardNumber } from '@utils/validator';
@@ -12,66 +12,68 @@ interface Props {
 const CardNumbers = ({ nextFieldRef }: Props) => {
   const { refs, cardNumbers, handleNumbers } = useCardNumber();
   const { brand } = CardContext.useSelector(({ context }) => context.cardState);
+  const { handleFocus, handleClickKeypad } = useVirtualKeypad({
+    maxLength: CARD_NUMBER_MAX_LENGTH,
+    onClick: handleNumbers,
+  });
 
   useFocus({
-    isValid: isCardNumber(cardNumbers.first),
+    isValid: isCardNumber(cardNumbers[0]),
     focusTargetRef: refs[1],
   });
 
   useFocus({
-    isValid: isCardNumber(cardNumbers.second),
+    isValid: isCardNumber(cardNumbers[1]),
     focusTargetRef: refs[2],
   });
 
   useFocus({
-    isValid: isCardNumber(cardNumbers.third),
+    isValid: isCardNumber(cardNumbers[2]),
     focusTargetRef: refs[3],
   });
 
   useFocus({
-    isValid: isCardNumber(cardNumbers.fourth) && Boolean(brand.label),
+    isValid: isCardNumber(cardNumbers[3]) && Boolean(brand.label),
     focusTargetRef: nextFieldRef,
   });
 
   return (
-    <Input.Container label='카드 번호' className='input-box'>
-      <Input.InputBase
-        ref={refs[0]}
-        name={'first'}
-        error={!isCardNumber(cardNumbers.first)}
-        onChange={handleNumbers}
-        value={cardNumbers.first}
-        maxLength={CARD_NUMBER_MAX_LENGTH}
-      />
-      <span>-</span>
-      <Input.InputBase
-        ref={refs[1]}
-        name={'second'}
-        error={!isCardNumber(cardNumbers.second)}
-        onChange={handleNumbers}
-        value={cardNumbers.second}
-        maxLength={CARD_NUMBER_MAX_LENGTH}
-      />
-      <span>-</span>
-      <Input.InputBase
-        ref={refs[2]}
-        type='password'
-        name={'third'}
-        error={!isCardNumber(cardNumbers.third)}
-        onChange={handleNumbers}
-        value={cardNumbers.third}
-        maxLength={CARD_NUMBER_MAX_LENGTH}
-      />
-      <span>-</span>
-      <Input.InputBase
-        ref={refs[3]}
-        name={'fourth'}
-        error={!isCardNumber(cardNumbers.fourth)}
-        onChange={handleNumbers}
-        value={cardNumbers.fourth}
-        maxLength={CARD_NUMBER_MAX_LENGTH}
-      />
-    </Input.Container>
+    <>
+      <Input.Container label='카드 번호' className='input-box'>
+        <Input.InputBase
+          ref={refs[0]}
+          isValid={isCardNumber}
+          onInput={handleNumbers}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+        <span>-</span>
+        <Input.InputBase
+          ref={refs[1]}
+          isValid={isCardNumber}
+          onInput={handleNumbers}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+        <span>-</span>
+        <Input.Keypad
+          ref={refs[2]}
+          type='password'
+          isValid={isCardNumber}
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+
+        <span>-</span>
+        <Input.Keypad
+          ref={refs[3]}
+          type='password'
+          isValid={isCardNumber}
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+      </Input.Container>
+    </>
   );
 };
 

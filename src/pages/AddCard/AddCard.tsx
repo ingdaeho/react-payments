@@ -1,4 +1,4 @@
-import { createRef, useState } from 'react';
+import { createRef } from 'react';
 import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
@@ -11,6 +11,7 @@ import { Modal } from '../../components/Modal/Modal';
 import { BrandList } from './components/BrandList';
 import { useCardBrands } from './hooks/useCardBrands';
 import { CardContext } from '../../App';
+import { useDisclosure } from '@hooks/useDisclosure';
 
 interface Props {
   onNext: () => void;
@@ -20,15 +21,12 @@ interface Props {
 const AddCard = ({ onNext, onGoBack }: Props) => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
   const { selectBrand } = useCardBrands();
-  const [showModal, setShowModal] = useState(true);
+  const [brandSelectModalOpened, brandSelectModalHandler] = useDisclosure(true);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, monthRef, ownerRef, passwordRef] = Array.from({ length: 4 }).map(
     createRef<HTMLInputElement>
   );
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
 
   return (
     <>
@@ -39,8 +37,8 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
 
       <Card
         {...cardState}
-        error={!cardState.brand.label && cardState.numbers.fourth.length === 4}
-        onClick={openModal}
+        error={!cardState.brand.label && cardState.numbers[3].length === 4}
+        onClick={brandSelectModalHandler.open}
       />
       <CardNumbers nextFieldRef={monthRef} />
       <CardExpiration ref={monthRef} nextFieldRef={ownerRef} />
@@ -52,8 +50,8 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
         <Button onClick={onNext}>다음</Button>
       </div>
 
-      {showModal && (
-        <Modal onClickDimmed={closeModal}>
+      {brandSelectModalOpened && (
+        <Modal onClickDimmed={brandSelectModalHandler.close}>
           <BrandList onClick={selectBrand} />
         </Modal>
       )}

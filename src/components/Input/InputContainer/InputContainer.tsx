@@ -7,6 +7,7 @@ import {
 import classNames from 'classnames';
 import { InputContext } from '../Input.context';
 import { InputBase } from '../Input';
+import { VirtualKeypad } from '../VirtualKeypad/VirtualKeypad';
 
 export interface Props extends ComponentPropsWithoutRef<'div'> {
   label?: string;
@@ -37,3 +38,4 @@ export const Input = ({
 Input.displayName = '@Input/Container';
 Input.Container = Input;
 Input.InputBase = InputBase;
+Input.Keypad = VirtualKeypad;

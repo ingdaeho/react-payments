@@ -1,18 +1,19 @@
 import { forwardRef, useImperativeHandle } from 'react';
 import useCardPassword from '../hooks/useCardPassword';
-import {
-  PASSWORD_INPUT_MAX_LENGTH,
-  isValidPassword,
-} from '../../../utils/validator';
-import useFocus from '../../../hooks/useFocus';
-import { Input } from '../../../components/Input/InputContainer/InputContainer';
+import useFocus from '@hooks/useFocus';
+import { Input, useVirtualKeypad } from '@components/Input';
+import { PASSWORD_INPUT_MAX_LENGTH, isValidPassword } from '@utils/validator';
 
 const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   const { refs, password, handlePassword } = useCardPassword();
+  const { handleFocus, handleClickKeypad } = useVirtualKeypad({
+    maxLength: PASSWORD_INPUT_MAX_LENGTH,
+    onClick: handlePassword,
+  });
   const [firstInput] = refs;
 
   useFocus({
-    isValid: isValidPassword(password.first),
+    isValid: isValidPassword(password[0]),
     focusTargetRef: refs[1],
   });
 
@@ -21,20 +22,20 @@ const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
   return (
     <Input.Container label='카드 비밀번호'>
       <div style={{ display: 'flex', gap: 6 }}>
-        <Input.InputBase
+        <Input.Keypad
           className='w-15'
           ref={refs[0]}
-          name={'first'}
-          onChange={handlePassword}
-          value={password.first}
+          type='password'
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
           maxLength={PASSWORD_INPUT_MAX_LENGTH}
         />
-        <Input.InputBase
+        <Input.Keypad
           className='w-15'
           ref={refs[1]}
-          name={'second'}
-          onChange={handlePassword}
-          value={password.second}
+          type='password'
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
           maxLength={PASSWORD_INPUT_MAX_LENGTH}
         />
         <div className='flex-center w-15'>•</div>

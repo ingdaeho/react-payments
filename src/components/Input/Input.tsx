@@ -1,41 +1,48 @@
-import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
+import { ComponentPropsWithRef, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
 import { useInputContext } from './useInput';
 
 export interface Props extends ComponentPropsWithRef<'input'> {
   type?: ComponentPropsWithRef<'input'>['type'];
   variant?: 'basic' | 'underline';
-  error?: boolean;
+  isValid?: (value: string) => boolean;
 }
 
-export const InputBase = forwardRef(
-  (
-    { type = 'text', variant = 'basic', error, className, ...rest }: Props,
-    ref: ForwardedRef<HTMLInputElement>
-  ) => {
-    const { setHasError } = useInputContext();
+export const InputBase = forwardRef<HTMLInputElement, Props>((props, ref) => {
+  const {
+    type = 'text',
+    variant = 'basic',
+    isValid,
+    className,
+    ...rest
+  } = props;
+  const { setHasError } = useInputContext();
 
-    const handleBlur = () => {
-      if (error) {
-        setHasError(true);
-      }
+  const handleFocus = () => {
+    setHasError(false);
+  };
+
+  useEffect(() => {
+    const validateInput = (e: Event) => {
+      const value = (e.target as HTMLInputElement).value;
+      const isInvalid = isValid ? isValid(value) : true;
+      setHasError(!isInvalid);
     };
 
-    const handleFocus = () => {
-      setHasError(false);
-    };
+    if (!ref || typeof ref === 'function') return;
+    ref.current?.addEventListener('input', validateInput);
+    () => ref.current?.removeEventListener('input', validateInput);
+  }, [ref]);
 
-    return (
-      <input
-        ref={ref}
-        type={type}
-        className={classNames(`input-${variant}`, className)}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        {...rest}
-      />
-    );
-  }
-);
+  return (
+    <input
+      ref={ref}
+      type={type}
+      className={classNames(`input-${variant}`, className)}
+      onFocus={handleFocus}
+      {...rest}
+    />
+  );
+});
 
 InputBase.displayName = '@Input/InputBase';

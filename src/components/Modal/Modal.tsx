@@ -7,7 +7,14 @@ interface Props extends PropsWithChildren {
 
 export const Modal = ({ children, onClickDimmed }: Props) => {
   return (
-    <div className='modal-dimmed' onClick={onClickDimmed}>
+    <div
+      className='modal-dimmed'
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClickDimmed();
+        }
+      }}
+    >
       <div className='modal'>{children}</div>
     </div>
   );

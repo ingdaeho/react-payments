@@ -9,11 +9,11 @@ import { deepFreeze } from '../utils/deepFreeze';
 
 const initialCardState: CardInfo = {
   id: '',
-  brand: { label: '', color: '' },
-  numbers: { first: '', second: '', third: '', fourth: '' },
+  brand: { label: '', color: '', bankId: [] },
+  numbers: ['', '', '', ''],
   owner: '',
-  expiration: { month: '', year: '' },
-  password: { first: '', second: '' },
+  expiration: ['', ''],
+  password: ['', ''],
   securityCode: '',
   nickname: '',
   createdAt: '',

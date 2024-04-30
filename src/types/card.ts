@@ -1,10 +1,10 @@
 export interface CardInfo {
   id: string;
   brand: Brand;
-  numbers: { first: string; second: string; third: string; fourth: string };
+  numbers: string[];
   owner: string;
-  expiration: { month: string; year: string };
-  password: { first: string; second: string };
+  expiration: string[];
+  password: string[];
   securityCode: string;
   nickname: string;
   createdAt: string;

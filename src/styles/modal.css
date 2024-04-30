@@ -52,3 +52,12 @@
   font-size: 12px;
   letter-spacing: -0.085rem;
 }
+
+.keypad {
+  width: 100%;
+  height: 100%;
+}
+
+.keypad > button {
+  height: 100%;
+}

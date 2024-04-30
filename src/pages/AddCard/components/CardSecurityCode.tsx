@@ -5,9 +5,9 @@ import {
 } from '../../../utils/validator';
 import useCardSecurityCode from '../hooks/useCardSecurityCode';
 import useFocus from '../../../hooks/useFocus';
-import { Input } from '../../../components/Input/InputContainer/InputContainer';
 import Tooltip from '@components/Tooltip/Tooltip';
 import HelpIcon from '@assets/svgs/help.svg?react';
+import { Input, useVirtualKeypad } from '@components/Input';
 
 interface Props {
   nextFieldRef: RefObject<HTMLInputElement>;
@@ -15,6 +15,10 @@ interface Props {
 
 const CardSecurityCode = ({ nextFieldRef }: Props) => {
   const { ref, securityCode, handleSecurityCode } = useCardSecurityCode();
+  const { handleFocus, handleClickKeypad } = useVirtualKeypad({
+    maxLength: SECURITY_CODE_MAX_LENGTH,
+    onClick: handleSecurityCode,
+  });
 
   useFocus({
     isValid: isValidSecurityCode(securityCode),
@@ -23,14 +27,13 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
 
   return (
     <div>
-      <Input.Container label='보안코드' className='flex'>
-        <Input.InputBase
+      <Input.Container label='보안코드' className='input-box w-25'>
+        <Input.Keypad
           ref={ref}
-          className='w-25'
           type='password'
-          error={!isValidSecurityCode(securityCode)}
-          value={securityCode}
-          onChange={handleSecurityCode}
+          isValid={isValidSecurityCode}
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
           maxLength={SECURITY_CODE_MAX_LENGTH}
         />
         <Tooltip icon={<HelpIcon />} message='보안코드 3자리' />

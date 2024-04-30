@@ -14,9 +14,7 @@ const CardOwner = forwardRef<HTMLInputElement>((_, forwardedRef) => {
       </span>
       <Input.InputBase
         ref={ref}
-        value={owner}
-        onChange={handleOwner}
-        error={!owner.length}
+        onInput={handleOwner}
         placeholder='카드에 표시된 이름과 동일하게 입력하세요.'
         maxLength={OWNER_NAME_MAX_LENGTH}
       />

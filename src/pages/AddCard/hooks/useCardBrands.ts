@@ -24,7 +24,7 @@ export const useCardBrands = () => {
 
   useEffect(() => {
     if (!brand.label) {
-      const brand = findLabelByNumbers(numbers.first, numbers.second);
+      const brand = findLabelByNumbers(numbers[0], numbers[1]);
       if (brand) {
         selectBrand(brand);
       }
