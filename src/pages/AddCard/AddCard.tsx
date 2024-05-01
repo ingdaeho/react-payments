@@ -19,7 +19,7 @@ interface Props {
 
 const AddCard = ({ onNext, onGoBack }: Props) => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
-  const { isOpened, handler, selectBrand } = useCardBrands();
+  const { opened, handler, selectBrand } = useCardBrands();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, monthRef, ownerRef, passwordRef] = Array.from({ length: 4 }).map(
@@ -48,11 +48,9 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
         <Button onClick={onNext}>다음</Button>
       </div>
 
-      {isOpened && (
-        <Modal onClickDimmed={handler.close}>
-          <BrandList onClick={selectBrand} />
-        </Modal>
-      )}
+      <Modal opened={opened} onClose={handler.close}>
+        <BrandList onClick={selectBrand} />
+      </Modal>
     </>
   );
 };

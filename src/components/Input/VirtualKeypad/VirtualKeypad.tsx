@@ -17,7 +17,7 @@ const shuffledValues = shuffle(KEYPAD_VALUES);
 export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
   (props, ref) => {
     const { onFocus, onClick, maxLength, ...rest } = props;
-    const [isOpen, handler] = useDisclosure(false);
+    const [opened, handler] = useDisclosure(false);
 
     const handleClick = (value: string | number) => {
       if (typeof value === 'string') return;
@@ -44,23 +44,21 @@ export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
           maxLength={maxLength}
           {...rest}
         />
-        {isOpen && (
-          <Modal onClickDimmed={handler.close}>
-            <div className='flex-center grid keypad'>
-              {shuffledValues.map((value, index) => {
-                return (
-                  <button
-                    className='modal-item-container'
-                    key={index}
-                    onClick={() => handleClick(value)}
-                  >
-                    {value}
-                  </button>
-                );
-              })}
-            </div>
-          </Modal>
-        )}
+        <Modal opened={opened} onClose={handler.close}>
+          <div className='flex-center grid keypad'>
+            {shuffledValues.map((value, index) => {
+              return (
+                <button
+                  className='modal-item-container'
+                  key={index}
+                  onClick={() => handleClick(value)}
+                >
+                  {value}
+                </button>
+              );
+            })}
+          </div>
+        </Modal>
       </>
     );
   }

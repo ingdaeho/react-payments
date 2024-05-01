@@ -1,17 +1,20 @@
 import { PropsWithChildren, ReactNode } from 'react';
 
 interface Props extends PropsWithChildren {
+  opened: boolean;
+  onClose: () => void;
   children: ReactNode;
-  onClickDimmed: () => void;
 }
 
-export const Modal = ({ children, onClickDimmed }: Props) => {
+export const Modal = ({ opened, onClose, children }: Props) => {
+  if (!opened) return null;
+
   return (
     <div
       className='modal-dimmed'
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          onClickDimmed();
+          onClose();
         }
       }}
     >

@@ -15,9 +15,9 @@ const Template: Story = {
     return (
       <>
         <button onClick={handler.open}>Open Modal</button>
-        {opened && (
-          <Modal onClickDimmed={handler.close}>{props.children}</Modal>
-        )}
+        <Modal opened={opened} onClose={handler.close}>
+          {props.children}
+        </Modal>
       </>
     );
   },
