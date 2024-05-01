@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Modal } from './Modal';
+import { useDisclosure } from '@hooks/useDisclosure';
 
 const meta: Meta<typeof Modal> = {
-  tags: ['autodocs'],
   component: Modal,
 };
 
@@ -10,14 +10,17 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 const Template: Story = {
-  args: {
-    onClickDimmed: () => {},
+  render: (props) => {
+    const [opened, handler] = useDisclosure(false);
+    return (
+      <>
+        <button onClick={handler.open}>Open Modal</button>
+        {opened && (
+          <Modal onClickDimmed={handler.close}>{props.children}</Modal>
+        )}
+      </>
+    );
   },
-  render: (props) => (
-    <div style={{ width: '375px', height: '500px', position: 'relative' }}>
-      <Modal {...props} />
-    </div>
-  ),
 };
 
 export const Example: Story = {

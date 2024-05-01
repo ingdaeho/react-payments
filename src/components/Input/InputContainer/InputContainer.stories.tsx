@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Input } from '../Index';
+import { Input } from './InputContainer';
 
 const meta: Meta<typeof Input.Container> = {
   component: Input.Container,
@@ -13,7 +13,7 @@ const Template: Story = {
   render: ({ label }) => {
     return (
       <Input.Container label={label}>
-        <Input />
+        <Input.InputBase />
       </Input.Container>
     );
   },
@@ -38,10 +38,10 @@ export const Password: Story = {
     return (
       <Input.Container label={label}>
         <div style={{ display: 'flex', gap: 6, width: '30%' }}>
-          <Input className='w-15' type='password' />
-          <Input className='w-15' type='password' />
-          <Input className='w-15' type='password' />
-          <Input className='w-15' type='password' />
+          <Input.InputBase className='w-15' type='password' />
+          <Input.InputBase className='w-15' type='password' />
+          <Input.InputBase className='w-15' type='password' />
+          <Input.InputBase className='w-15' type='password' />
         </div>
       </Input.Container>
     );

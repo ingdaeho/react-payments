@@ -45,4 +45,4 @@ export const InputBase = forwardRef<HTMLInputElement, Props>((props, ref) => {
   );
 });
 
-InputBase.displayName = '@Input/InputBase';
+InputBase.displayName = 'InputBase';

@@ -35,7 +35,7 @@ export const Input = ({
   );
 };
 
-Input.displayName = '@Input/Container';
+Input.displayName = 'InputContainer';
 Input.Container = Input;
 Input.InputBase = InputBase;
 Input.Keypad = VirtualKeypad;

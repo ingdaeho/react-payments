@@ -14,6 +14,6 @@ export const Default: Story = {
     brand: { label: '클린 카드', color: '#E76E9A', bankId: ['1', '1'] },
     numbers: ['1234', '5678', '1234', '5678'],
     owner: 'NAME',
-    expiration: { month: 'MM', year: 'YY' },
+    expiration: ['12', '23'],
   },
 };
