@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CardContext } from '../App';
+import { CardContext } from '@machine/cardMachine';
 import { PagesType } from '../constants/pages';
 import { goPageEventTypeMap } from '../types';
 

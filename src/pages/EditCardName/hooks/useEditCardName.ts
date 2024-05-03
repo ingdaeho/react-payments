@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { CardContext } from '../../../App';
+import { CardContext } from '@machine/cardMachine';
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { CardInfo } from '../../../types';
 

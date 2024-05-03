@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { Brand } from '../../../types';
-import { CardContext } from '../../../App';
+import { CardContext } from '@machine/cardMachine';
 import { CardBrandList } from '../components/BrandList';
 import { useDisclosure } from '@hooks/useDisclosure';
 

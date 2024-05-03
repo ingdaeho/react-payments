@@ -1,7 +1,7 @@
 import { RefObject } from 'react';
 import { Input, useVirtualKeypad } from '@components/Input';
 import useFocus from '@hooks/useFocus';
-import { CardContext } from '../../../App';
+import { CardContext } from '@machine/cardMachine';
 import { CARD_NUMBER_MAX_LENGTH, isCardNumber } from '@utils/validator';
 import useCardNumber from '../hooks/useCardNumber';
 

@@ -1,8 +1,5 @@
-import { createActorContext } from '@xstate/react';
-import { cardMachine } from './machine/cardMachine';
+import { CardContext } from './machine/cardMachine';
 import { CardStepper } from './pages/CardStepper/CardStepper';
-
-export const CardContext = createActorContext(cardMachine);
 
 function App() {
   return (

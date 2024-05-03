@@ -1,5 +1,5 @@
 import { createRef, useCallback } from 'react';
-import { CardContext } from '../../../App';
+import { CardContext } from '@machine/cardMachine';
 
 const useCardExpiration = () => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);

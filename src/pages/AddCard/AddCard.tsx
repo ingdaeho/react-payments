@@ -10,7 +10,7 @@ import CardPassword from './components/CardPassword';
 import { Modal } from '../../components/Modal/Modal';
 import { BrandList } from './components/BrandList';
 import { useCardBrands } from './hooks/useCardBrands';
-import { CardContext } from '../../App';
+import { CardContext } from '@machine/cardMachine';
 
 interface Props {
   onNext: () => void;

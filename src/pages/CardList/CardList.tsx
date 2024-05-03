@@ -2,7 +2,7 @@ import Card from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
 import AddNewCard from './components/AddNewCard';
 import CloseButton from '../../components/CloseButton/CloseButton';
-import { CardContext } from '../../App';
+import { CardContext } from '@machine/cardMachine';
 
 interface Props {
   onNext: () => void;

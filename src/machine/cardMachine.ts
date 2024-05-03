@@ -1,4 +1,5 @@
 import { setup, assign } from 'xstate';
+import { createActorContext } from '@xstate/react';
 import { CardInfo, CardMachineContext, CardMachineEvent } from '../types';
 import {
   setLocalStorageItem,
@@ -196,3 +197,5 @@ export const cardMachine = setup({
     },
   },
 });
+
+export const CardContext = createActorContext(cardMachine);

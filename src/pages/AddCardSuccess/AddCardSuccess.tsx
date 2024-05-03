@@ -1,7 +1,7 @@
 import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
-import { CardContext } from '../../App';
+import { CardContext } from '@machine/cardMachine';
 import CardNameInput from '../../components/CardNameInput/CardNameInput';
 import useCardNickname from './hooks/useNickname';
 

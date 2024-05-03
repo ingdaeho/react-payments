@@ -1,7 +1,7 @@
 import { Children, ReactElement, ReactNode, isValidElement } from 'react';
 import { PagesType } from '../constants/pages';
 import { useQueryParams } from './useQueryParams';
-import { CardContext } from '../App';
+import { CardContext } from '@machine/cardMachine';
 import { goPageEventTypeMap } from '../types';
 
 export interface StepperProps<Step extends PagesType> {
