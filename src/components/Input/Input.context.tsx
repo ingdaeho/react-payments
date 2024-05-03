@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, createContext } from 'react';
 
-interface InputContext {
+export interface InputContext {
   hasError: boolean;
   setHasError: Dispatch<SetStateAction<boolean>>;
 }

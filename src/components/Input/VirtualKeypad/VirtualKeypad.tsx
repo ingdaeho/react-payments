@@ -7,7 +7,7 @@ import { useDisclosure } from '@hooks/useDisclosure';
 
 const KEYPAD_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '*', '*'];
 
-interface Props extends Omit<InputProps, 'onClick'> {
+export interface Props extends Omit<InputProps, 'onClick'> {
   onClick: (value: number) => void;
   onFocus: FocusEventHandler<HTMLInputElement>;
 }
