@@ -1,11 +1,18 @@
 import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
 import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr({ include: '**/*.svg?react' })],
+  plugins: [
+    react(),
+    svgr({ include: '**/*.svg?react' }),
+    dts({
+      tsconfigPath: './tsconfig.lib.json',
+    }),
+  ],
   resolve: {
     alias: [
       {
@@ -45,5 +52,24 @@ export default defineConfig({
         replacement: path.resolve(__dirname, 'src/assets'),
       },
     ],
+  },
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, 'src/index.ts'),
+      name: '@ingdaeho/payments',
+      formats: ['es', 'cjs'],
+      fileName: (format) => `index.${format}.js`,
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom', 'xstate', '@xstate/react'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          xstate: 'xstate',
+          '@xstate/react': '@xstate/react',
+        },
+      },
+    },
   },
 });

@@ -1,8 +1,30 @@
 {
-  "name": "payments",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@ingdaeho/payments",
+  "private": false,
+  "version": "0.0.1",
+  "license": "MIT",
   "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "author": {
+    "name": "ingdaeho",
+    "email": "dlaeogh8572@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ingdaeho/payments-widget.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -41,6 +63,11 @@
     "storybook": "^7.6.17",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.9.0",
     "vite-plugin-svgr": "^4.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
