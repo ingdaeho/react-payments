@@ -14,14 +14,10 @@ body {
   background-color: #e5e5e5;
 }
 
-input {
-  font-size: 16px;
-}
-
 .widget {
   background-color: #fff;
-  width: 320px;
-  min-width: 320px;
+  width: 375px;
+  min-width: 375px;
   height: 700px;
   position: absolute;
   border-radius: 15px;

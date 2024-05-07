@@ -1,6 +1,6 @@
+import { createPortal } from 'react-dom';
 import { CardContext } from './machine/cardMachine';
 import { CardStepper } from './pages/CardStepper/CardStepper';
-import { createPortal } from 'react-dom';
 import { useDisclosure } from '@hooks/useDisclosure';
 import './styles/index.css';
 
@@ -8,11 +8,11 @@ export function usePaymentWidget() {
   const [opened, handler] = useDisclosure(false);
 
   const initPayment = () => handler.open();
-  const closePayment = () => handler.close();
 
-  const renderPaymentWidget =
-    opened &&
-    createPortal(
+  const PaymentWidget = () => {
+    if (!opened) return <></>;
+
+    return createPortal(
       <div className='widget'>
         <CardContext.Provider>
           <CardStepper />
@@ -20,6 +20,7 @@ export function usePaymentWidget() {
       </div>,
       document.body
     );
+  };
 
-  return { renderPaymentWidget, initPayment, closePayment };
+  return { PaymentWidget, initPayment };
 }
