@@ -45,7 +45,7 @@ export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
           {...rest}
         />
         <Modal opened={opened} onClose={handler.close}>
-          <div className='flex-center grid keypad'>
+          <div className='grid keypad'>
             {shuffledValues.map((value, index) => {
               return (
                 <button
