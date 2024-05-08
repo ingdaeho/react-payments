@@ -30,12 +30,12 @@ button {
 }
 
 .button-outlined {
-  background-color: #dddddd;
-  color: white;
+  background-color: white;
+  color: #2bc1bc;
   margin: 10px;
   padding: 10px 24px;
   cursor: pointer;
-  border: 1px solid #dddddd;
+  border: 1px solid #2bc1bc;
 }
 
 .close-button {
@@ -51,4 +51,20 @@ button {
   display: inline-block;
   content: '\00d7';
   font-size: 15pt;
+}
+
+.disabled {
+  color: rgba(0, 0, 0, 0.26);
+  cursor: not-allowed;
+}
+
+.button-contained.disabled {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.button-outlined.disabled {
+  color: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
