@@ -1,4 +1,4 @@
-import { createRef } from 'react';
+import { createRef, useMemo } from 'react';
 import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
@@ -11,6 +11,7 @@ import { Modal } from '../../components/Modal/Modal';
 import { BrandList } from './components/BrandList';
 import { useCardBrands } from './hooks/useCardBrands';
 import { CardContext } from '@machine/cardMachine';
+import { isValidCardState } from '@utils/validator';
 
 interface Props {
   onNext: () => void;
@@ -20,6 +21,10 @@ interface Props {
 const AddCard = ({ onNext, onGoBack }: Props) => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
   const { opened, handler, selectBrand } = useCardBrands();
+  const isValidCardInfo = useMemo(
+    () => isValidCardState(cardState),
+    [cardState]
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, monthRef, ownerRef, passwordRef] = Array.from({ length: 4 }).map(
@@ -45,7 +50,9 @@ const AddCard = ({ onNext, onGoBack }: Props) => {
       <CardPassword ref={passwordRef} />
 
       <div className='button-box'>
-        <Button onClick={onNext}>다음</Button>
+        <Button disabled={!isValidCardInfo} onClick={onNext}>
+          다음
+        </Button>
       </div>
 
       <Modal opened={opened} onClose={handler.close}>

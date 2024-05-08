@@ -38,7 +38,7 @@ export const cardMachine = setup({
 
           return {
             ...context.cardState,
-            [key]: { ...value },
+            [key]: [...value],
           };
         }
 
