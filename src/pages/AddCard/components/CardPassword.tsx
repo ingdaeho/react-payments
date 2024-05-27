@@ -26,9 +26,6 @@ const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
           className='w-15'
           ref={refs[0]}
           type='password'
-          onKeyDown={(event) => {
-            event.preventDefault();
-          }}
           onFocus={handleFocus}
           onClick={handleClickKeypad}
           maxLength={PASSWORD_INPUT_MAX_LENGTH}
@@ -37,9 +34,6 @@ const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
           className='w-15'
           ref={refs[1]}
           type='password'
-          onKeyDown={(event) => {
-            event.preventDefault();
-          }}
           onFocus={handleFocus}
           onClick={handleClickKeypad}
           maxLength={PASSWORD_INPUT_MAX_LENGTH}

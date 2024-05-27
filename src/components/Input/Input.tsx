@@ -1,38 +1,41 @@
-import { ComponentPropsWithRef, forwardRef, useEffect } from 'react';
+import {
+  ComponentPropsWithRef,
+  forwardRef,
+  FocusEvent,
+  FocusEventHandler,
+} from 'react';
 import classNames from 'classnames';
 import { useInputContext } from './useInput';
 
 export interface Props extends ComponentPropsWithRef<'input'> {
   type?: ComponentPropsWithRef<'input'>['type'];
   variant?: 'basic' | 'underline';
-  isValid?: (value: string) => boolean;
+  isError?: boolean;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 }
 
 export const InputBase = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const {
     type = 'text',
     variant = 'basic',
-    isValid,
+    isError = false,
+    onFocus,
+    onBlur,
     className,
     ...rest
   } = props;
   const { setHasError } = useInputContext();
 
-  const handleFocus = () => {
+  const handleFocus = (event: FocusEvent<HTMLInputElement, Element>) => {
+    if (onFocus) onFocus(event);
     setHasError(false);
   };
 
-  useEffect(() => {
-    const validateInput = (e: Event) => {
-      const value = (e.target as HTMLInputElement).value;
-      const isInvalid = isValid ? isValid(value) : true;
-      setHasError(!isInvalid);
-    };
-
-    if (!ref || typeof ref === 'function') return;
-    ref.current?.addEventListener('input', validateInput);
-    return () => ref.current?.removeEventListener('input', validateInput);
-  }, []);
+  const handleBlur = (event: FocusEvent<HTMLInputElement, Element>) => {
+    if (onBlur) onBlur(event);
+    setHasError(isError);
+  };
 
   return (
     <input
@@ -40,6 +43,7 @@ export const InputBase = forwardRef<HTMLInputElement, Props>((props, ref) => {
       type={type}
       className={classNames(`input-${variant}`, className)}
       onFocus={handleFocus}
+      onBlur={handleBlur}
       {...rest}
     />
   );

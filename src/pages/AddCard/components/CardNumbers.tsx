@@ -42,14 +42,14 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
       <Input.Container label='카드 번호' className='input-box'>
         <Input.InputBase
           ref={refs[0]}
-          isValid={isCardNumber}
+          isError={!isCardNumber(cardNumbers[0])}
           onInput={handleNumbers}
           maxLength={CARD_NUMBER_MAX_LENGTH}
         />
         <span>-</span>
         <Input.InputBase
           ref={refs[1]}
-          isValid={isCardNumber}
+          isError={!isCardNumber(cardNumbers[1])}
           onInput={handleNumbers}
           maxLength={CARD_NUMBER_MAX_LENGTH}
         />
@@ -57,10 +57,7 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
         <Input.Keypad
           ref={refs[2]}
           type='password'
-          isValid={isCardNumber}
-          onKeyDown={(event) => {
-            event.preventDefault();
-          }}
+          isError={!isCardNumber(cardNumbers[2])}
           onFocus={handleFocus}
           onClick={handleClickKeypad}
           maxLength={CARD_NUMBER_MAX_LENGTH}
@@ -70,10 +67,7 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
         <Input.Keypad
           ref={refs[3]}
           type='password'
-          isValid={isCardNumber}
-          onKeyDown={(event) => {
-            event.preventDefault();
-          }}
+          isError={!isCardNumber(cardNumbers[3])}
           onFocus={handleFocus}
           onClick={handleClickKeypad}
           maxLength={CARD_NUMBER_MAX_LENGTH}

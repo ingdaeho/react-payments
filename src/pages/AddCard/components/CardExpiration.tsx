@@ -34,7 +34,7 @@ const CardExpiration = forwardRef<HTMLInputElement, Props>(
         <Input.InputBase
           ref={refs[0]}
           placeholder='MM'
-          isValid={isValidMonth}
+          isError={!isValidMonth(expiration[0])}
           onInput={handleExpirationDate}
           maxLength={EXPIRATION_MAX_LENGTH}
         />
@@ -42,7 +42,7 @@ const CardExpiration = forwardRef<HTMLInputElement, Props>(
         <Input.InputBase
           ref={refs[1]}
           placeholder='YY'
-          isValid={isValidYear}
+          isError={!isValidYear(expiration[1])}
           onInput={handleExpirationDate}
           maxLength={EXPIRATION_MAX_LENGTH}
         />

@@ -4,6 +4,7 @@ import { shuffle } from '@utils/shuffle';
 import { Input } from '../InputContainer/InputContainer';
 import { Props as InputProps } from '../Input';
 import { useDisclosure } from '@hooks/useDisclosure';
+import { useInputContext } from '../useInput';
 
 const KEYPAD_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '*', '*'];
 
@@ -19,12 +20,16 @@ export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
     const [keypads, setKeypads] = useState(shuffledValues);
     const { onFocus, onClick, maxLength, ...rest } = props;
     const [opened, handler] = useDisclosure(false);
+    const { setHasError } = useInputContext();
 
     const handleClick = (value: string | number) => {
       if (typeof value === 'string') return;
       if (!ref || typeof ref === 'function') return;
       onClick(value);
-      if (ref.current?.value.length === maxLength) handler.close();
+      if (ref.current?.value.length === maxLength) {
+        setHasError(false);
+        handler.close();
+      }
     };
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
@@ -38,6 +43,9 @@ export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
         <Input.InputBase
           ref={ref}
           onFocus={handleFocus}
+          onKeyDown={(event) => {
+            event.preventDefault();
+          }}
           maxLength={maxLength}
           {...rest}
         />

@@ -30,10 +30,7 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
       <Input.Keypad
         ref={ref}
         type='password'
-        isValid={isValidSecurityCode}
-        onKeyDown={(event) => {
-          event.preventDefault();
-        }}
+        isError={!isValidSecurityCode(securityCode)}
         onFocus={handleFocus}
         onClick={handleClickKeypad}
         maxLength={SECURITY_CODE_MAX_LENGTH}
