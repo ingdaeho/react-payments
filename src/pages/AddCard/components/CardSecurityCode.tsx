@@ -31,6 +31,9 @@ const CardSecurityCode = ({ nextFieldRef }: Props) => {
         ref={ref}
         type='password'
         isValid={isValidSecurityCode}
+        onKeyDown={(event) => {
+          event.preventDefault();
+        }}
         onFocus={handleFocus}
         onClick={handleClickKeypad}
         maxLength={SECURITY_CODE_MAX_LENGTH}

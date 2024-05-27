@@ -1,4 +1,4 @@
-import { FocusEventHandler, forwardRef, useEffect } from 'react';
+import { FocusEventHandler, forwardRef } from 'react';
 import { Modal } from '@components/Modal/Modal';
 import { shuffle } from '@utils/shuffle';
 import { Input } from '../InputContainer/InputContainer';
@@ -21,20 +21,15 @@ export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
 
     const handleClick = (value: string | number) => {
       if (typeof value === 'string') return;
+      if (!ref || typeof ref === 'function') return;
       onClick(value);
+      if (ref.current?.value.length === maxLength) handler.close();
     };
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
       handler.open();
       onFocus(event);
     };
-
-    useEffect(() => {
-      if (!ref || typeof ref === 'function') return;
-      if (ref.current?.value.length === maxLength) {
-        handler.close();
-      }
-    }, [handler, maxLength, ref]);
 
     return (
       <>

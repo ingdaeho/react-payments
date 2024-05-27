@@ -58,6 +58,9 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
           ref={refs[2]}
           type='password'
           isValid={isCardNumber}
+          onKeyDown={(event) => {
+            event.preventDefault();
+          }}
           onFocus={handleFocus}
           onClick={handleClickKeypad}
           maxLength={CARD_NUMBER_MAX_LENGTH}
@@ -68,6 +71,9 @@ const CardNumbers = ({ nextFieldRef }: Props) => {
           ref={refs[3]}
           type='password'
           isValid={isCardNumber}
+          onKeyDown={(event) => {
+            event.preventDefault();
+          }}
           onFocus={handleFocus}
           onClick={handleClickKeypad}
           maxLength={CARD_NUMBER_MAX_LENGTH}
