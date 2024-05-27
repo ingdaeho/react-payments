@@ -31,8 +31,8 @@ export const InputBase = forwardRef<HTMLInputElement, Props>((props, ref) => {
 
     if (!ref || typeof ref === 'function') return;
     ref.current?.addEventListener('input', validateInput);
-    () => ref.current?.removeEventListener('input', validateInput);
-  }, [ref]);
+    return () => ref.current?.removeEventListener('input', validateInput);
+  }, []);
 
   return (
     <input
