@@ -1,4 +1,4 @@
-import { FocusEventHandler, forwardRef } from 'react';
+import { FocusEventHandler, forwardRef, useState } from 'react';
 import { Modal } from '@components/Modal/Modal';
 import { shuffle } from '@utils/shuffle';
 import { Input } from '../InputContainer/InputContainer';
@@ -16,6 +16,7 @@ const shuffledValues = shuffle(KEYPAD_VALUES);
 
 export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
   (props, ref) => {
+    const [keypads, setKeypads] = useState(shuffledValues);
     const { onFocus, onClick, maxLength, ...rest } = props;
     const [opened, handler] = useDisclosure(false);
 
@@ -27,6 +28,7 @@ export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
     };
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
+      setKeypads(shuffle(KEYPAD_VALUES));
       handler.open();
       onFocus(event);
     };
@@ -41,7 +43,7 @@ export const VirtualKeypad = forwardRef<HTMLInputElement, Props>(
         />
         <Modal opened={opened} onClose={handler.close}>
           <div className='grid keypad'>
-            {shuffledValues.map((value, index) => {
+            {keypads.map((value, index) => {
               return (
                 <button
                   className='modal-item-container'
