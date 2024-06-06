@@ -1,16 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Input from './Input';
+import { InputBase } from './Input';
+import { Input } from './InputContainer/InputContainer';
 
-const meta: Meta<typeof Input> = {
-  component: Input,
+const meta: Meta<typeof InputBase> = {
+  component: InputBase,
   tags: ['autodocs'],
   argTypes: {
     variant: {
       options: ['basic', 'underline'],
       control: { type: 'radio' },
     },
-    type: {},
   },
+  decorators: [
+    (Story) => (
+      <Input.Container>
+        <Story />
+      </Input.Container>
+    ),
+  ],
 };
 
 export default meta;

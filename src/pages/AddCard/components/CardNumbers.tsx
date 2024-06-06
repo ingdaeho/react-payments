@@ -1,27 +1,79 @@
-import { Fragment } from 'react/jsx-runtime';
-import Input from '../../../components/Input/Input';
-import InputContainer from '../../../components/InputContainer/InputContainer';
+import { RefObject } from 'react';
+import { Input, useVirtualKeypad } from '@components/Input';
+import useFocus from '@hooks/useFocus';
+import { CardContext } from '@machine/cardMachine';
+import { CARD_NUMBER_MAX_LENGTH, isCardNumber } from '@utils/validator';
 import useCardNumber from '../hooks/useCardNumber';
 
-const CardNumbers = () => {
-  const { cardNumber, handleNumbers } = useCardNumber();
+interface Props {
+  nextFieldRef: RefObject<HTMLInputElement>;
+}
+
+const CardNumbers = ({ nextFieldRef }: Props) => {
+  const { refs, cardNumbers, handleNumbers } = useCardNumber();
+  const { brand } = CardContext.useSelector(({ context }) => context.cardState);
+  const { handleFocus, handleClickKeypad } = useVirtualKeypad({
+    maxLength: CARD_NUMBER_MAX_LENGTH,
+    onClick: handleNumbers,
+  });
+
+  useFocus({
+    isValid: isCardNumber(cardNumbers[0]),
+    focusTargetRef: refs[1],
+  });
+
+  useFocus({
+    isValid: isCardNumber(cardNumbers[1]),
+    focusTargetRef: refs[2],
+  });
+
+  useFocus({
+    isValid: isCardNumber(cardNumbers[2]),
+    focusTargetRef: refs[3],
+  });
+
+  useFocus({
+    isValid: isCardNumber(cardNumbers[3]) && Boolean(brand.label),
+    focusTargetRef: nextFieldRef,
+  });
 
   return (
-    <InputContainer label='카드 번호'>
-      <div className='input-box'>
-        {Object.entries(cardNumber).map(([key, value], index) => (
-          <Fragment key={key}>
-            <Input
-              type={index > 1 ? 'password' : 'text'}
-              name={key}
-              onChange={handleNumbers}
-              value={cardNumber[key as keyof typeof cardNumber]}
-            />
-            {value.length === 4 && index < 3 && <span>-</span>}
-          </Fragment>
-        ))}
-      </div>
-    </InputContainer>
+    <>
+      <Input.Container label='카드 번호' className='input-box'>
+        <Input.InputBase
+          ref={refs[0]}
+          isError={!isCardNumber(cardNumbers[0])}
+          onInput={handleNumbers}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+        <span>-</span>
+        <Input.InputBase
+          ref={refs[1]}
+          isError={!isCardNumber(cardNumbers[1])}
+          onInput={handleNumbers}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+        <span>-</span>
+        <Input.Keypad
+          ref={refs[2]}
+          type='password'
+          isError={!isCardNumber(cardNumbers[2])}
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+
+        <span>-</span>
+        <Input.Keypad
+          ref={refs[3]}
+          type='password'
+          isError={!isCardNumber(cardNumbers[3])}
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
+          maxLength={CARD_NUMBER_MAX_LENGTH}
+        />
+      </Input.Container>
+    </>
   );
 };
 

@@ -1,35 +1,25 @@
-import { useCallback } from 'react';
-import { CardContext } from '../../../App';
-
-const EXPIRATION_MAX_LENGTH = 2;
-const MAX_MONTH = 12;
+import { createRef, useCallback } from 'react';
+import { CardContext } from '@machine/cardMachine';
 
 const useCardExpiration = () => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
   const { send } = CardContext.useActorRef();
 
-  const handleExpirationDate = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value, name } = e.target;
+  const refs = Array.from({ length: 2 }).map(createRef<HTMLInputElement>);
 
-      const isNumber = !Number.isNaN(Number(value));
-      if (!isNumber || value.length > EXPIRATION_MAX_LENGTH) return;
-      if (name === 'month' && Number(value) > MAX_MONTH) return;
+  const handleExpirationDate = useCallback(() => {
+    const value = refs.map((ref) => ref.current?.value || '');
 
-      send({
-        type: 'UPDATE_EXPIRATION_DATE',
-        payload: {
-          key: 'expiration',
-          value: { ...cardState.expiration, [name]: value },
-        },
-      });
-    },
-    [cardState.expiration, send]
-  );
+    send({
+      type: 'UPDATE_EXPIRATION_DATE',
+      payload: { key: 'expiration', value },
+    });
+  }, [refs, send]);
 
   return {
     expiration: cardState.expiration,
     handleExpirationDate,
+    refs,
   };
 };
 

@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback } from 'react';
-import { CardContext } from '../../../App';
+import { CardContext } from '@machine/cardMachine';
 
 const useCardNickname = () => {
   const { nickname } = CardContext.useSelector(

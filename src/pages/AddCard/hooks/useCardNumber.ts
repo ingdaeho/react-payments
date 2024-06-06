@@ -1,33 +1,25 @@
-import { ChangeEvent, useCallback } from 'react';
-import { CardContext } from '../../../App';
-
-const CARD_NUMBER_MAX_LENGTH = 4;
+import { createRef, useCallback } from 'react';
+import { CardContext } from '@machine/cardMachine';
 
 const useCardNumber = () => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
   const { send } = CardContext.useActorRef();
 
-  const handleNumbers = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { value, name } = e.target;
+  const refs = Array.from({ length: 4 }).map(createRef<HTMLInputElement>);
 
-      const isNumber = !Number.isNaN(Number(value));
-      if (!isNumber || value.length > CARD_NUMBER_MAX_LENGTH) return;
+  const handleNumbers = useCallback(() => {
+    const numbers = refs.map((ref) => ref.current?.value || '');
 
-      send({
-        type: 'UPDATE_CARD_NUMBER',
-        payload: {
-          key: 'numbers',
-          value: { ...cardState.numbers, [name]: value },
-        },
-      });
-    },
-    [cardState.numbers, send]
-  );
+    send({
+      type: 'UPDATE_CARD_NUMBER',
+      payload: { key: 'numbers', value: numbers },
+    });
+  }, [refs, send]);
 
   return {
-    cardNumber: cardState.numbers,
+    cardNumbers: cardState.numbers,
     handleNumbers,
+    refs,
   };
 };
 

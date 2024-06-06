@@ -1,6 +1,5 @@
 import { ChangeEvent } from 'react';
-import Input from '../Input/Input';
-import InputContainer from '../InputContainer/InputContainer';
+import { Input } from '../Input/InputContainer/InputContainer';
 
 interface Props {
   nickname: string;
@@ -9,8 +8,8 @@ interface Props {
 
 const CardNameInput = ({ nickname, onChange }: Props) => {
   return (
-    <InputContainer className='input-container flex-center w-100'>
-      <Input
+    <Input.Container className='input-container flex-center w-100'>
+      <Input.InputBase
         className='input-underline w-75'
         placeholder='카드 별칭 (선택)'
         variant='underline'
@@ -18,7 +17,7 @@ const CardNameInput = ({ nickname, onChange }: Props) => {
         value={nickname}
         onChange={onChange}
       />
-    </InputContainer>
+    </Input.Container>
   );
 };
 

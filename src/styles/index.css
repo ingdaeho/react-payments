@@ -3,6 +3,7 @@
 @import './button.css';
 @import './modal.css';
 @import './utils.css';
+@import './tooltip.css';
 
 body {
   display: flex;
@@ -13,18 +14,18 @@ body {
   background-color: #e5e5e5;
 }
 
-input {
-  font-size: 16px;
-}
-
-#root {
+.widget {
   background-color: #fff;
   width: 375px;
   min-width: 375px;
   height: 700px;
-  position: relative;
+  position: absolute;
   border-radius: 15px;
   overflow: auto;
+  padding: 16px 24px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .app {
@@ -44,4 +45,9 @@ input {
 
 .relative-box {
   position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }

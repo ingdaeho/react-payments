@@ -1,28 +1,48 @@
-import Input from '../../../components/Input/Input';
-import InputContainer from '../../../components/InputContainer/InputContainer';
+import { forwardRef, useImperativeHandle } from 'react';
 import useCardPassword from '../hooks/useCardPassword';
+import useFocus from '@hooks/useFocus';
+import { Input, useVirtualKeypad } from '@components/Input';
+import { PASSWORD_INPUT_MAX_LENGTH, isValidPassword } from '@utils/validator';
 
-const CardPassword = () => {
-  const { password, handlePassword } = useCardPassword();
+const CardPassword = forwardRef<HTMLInputElement>((_, forwardedRef) => {
+  const { refs, password, handlePassword } = useCardPassword();
+  const { handleFocus, handleClickKeypad } = useVirtualKeypad({
+    maxLength: PASSWORD_INPUT_MAX_LENGTH,
+    onClick: handlePassword,
+  });
+  const [firstInput] = refs;
+
+  useFocus({
+    isValid: isValidPassword(password[0]),
+    focusTargetRef: refs[1],
+  });
+
+  useImperativeHandle(forwardedRef, () => firstInput.current!);
 
   return (
-    <InputContainer label='카드 비밀번호'>
+    <Input.Container label='카드 비밀번호'>
       <div style={{ display: 'flex', gap: 6 }}>
-        {Object.keys(password).map((key) => (
-          <Input
-            key={key}
-            className='w-15'
-            name={key}
-            type='password'
-            value={password[key as keyof typeof password]}
-            onChange={handlePassword}
-          />
-        ))}
+        <Input.Keypad
+          className='w-15'
+          ref={refs[0]}
+          type='password'
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
+          maxLength={PASSWORD_INPUT_MAX_LENGTH}
+        />
+        <Input.Keypad
+          className='w-15'
+          ref={refs[1]}
+          type='password'
+          onFocus={handleFocus}
+          onClick={handleClickKeypad}
+          maxLength={PASSWORD_INPUT_MAX_LENGTH}
+        />
         <div className='flex-center w-15'>•</div>
         <div className='flex-center w-15'>•</div>
       </div>
-    </InputContainer>
+    </Input.Container>
   );
-};
+});
 
 export default CardPassword;

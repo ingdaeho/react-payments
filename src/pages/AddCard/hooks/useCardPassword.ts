@@ -1,31 +1,26 @@
-import { useCallback } from 'react';
-import { CardContext } from '../../../App';
-
-const PASSWORD_INPUT_MAX_LENGTH = 1;
+import { createRef, useCallback } from 'react';
+import { CardContext } from '@machine/cardMachine';
 
 const useCardPassword = () => {
   const cardState = CardContext.useSelector(({ context }) => context.cardState);
   const { send } = CardContext.useActorRef();
 
-  const handlePassword = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value, name } = e.target;
+  const refs = Array.from({ length: 2 }).map(createRef<HTMLInputElement>);
 
-      const isNumber = !Number.isNaN(Number(value));
-      if (!isNumber || value.length > PASSWORD_INPUT_MAX_LENGTH) return;
+  const handlePassword = useCallback(() => {
+    const password = refs.map((ref) => ref.current?.value || '');
 
-      send({
-        type: 'UPDATE_PASSWORD',
-        payload: {
-          key: 'password',
-          value: { ...cardState.password, [name]: value },
-        },
-      });
-    },
-    [cardState.password, send]
-  );
+    send({
+      type: 'UPDATE_PASSWORD',
+      payload: {
+        key: 'password',
+        value: password,
+      },
+    });
+  }, [refs, send]);
 
   return {
+    refs,
     password: cardState.password,
     handlePassword,
   };

@@ -1,4 +1,5 @@
 import { setup, assign } from 'xstate';
+import { createActorContext } from '@xstate/react';
 import { CardInfo, CardMachineContext, CardMachineEvent } from '../types';
 import {
   setLocalStorageItem,
@@ -9,11 +10,11 @@ import { deepFreeze } from '../utils/deepFreeze';
 
 const initialCardState: CardInfo = {
   id: '',
-  brand: { label: '', color: '' },
-  numbers: { first: '', second: '', third: '', fourth: '' },
+  brand: { label: '', color: '', bankId: [] },
+  numbers: ['', '', '', ''],
   owner: '',
-  expiration: { month: '', year: '' },
-  password: { first: '', second: '' },
+  expiration: ['', ''],
+  password: ['', ''],
   securityCode: '',
   nickname: '',
   createdAt: '',
@@ -37,7 +38,7 @@ export const cardMachine = setup({
 
           return {
             ...context.cardState,
-            [key]: { ...value },
+            [key]: [...value],
           };
         }
 
@@ -196,3 +197,5 @@ export const cardMachine = setup({
     },
   },
 });
+
+export const CardContext = createActorContext(cardMachine);

@@ -1,12 +1,20 @@
-import useStepper from '../../hooks/useStepper';
-import { PAGES } from '../../constants/pages';
-import CardAdd from '../../pages/AddCard/AddCard';
-import CardList from '../../pages/CardList/CardList';
-import AddCardSuccess from '../../pages/AddCardSuccess/AddCardSuccess';
-import EditCardName from '../../pages/EditCardName/EditCardName';
+import { useEffect } from 'react';
+import useStepper from '@hooks/useStepper';
+import { useQueryParams } from '@hooks/useQueryParams';
+import { PAGES } from '@constants/pages';
+import CardAdd from '@pages/AddCard/AddCard';
+import CardList from '@pages/CardList/CardList';
+import AddCardSuccess from '@pages/AddCardSuccess/AddCardSuccess';
+import EditCardName from '@pages/EditCardName/EditCardName';
 
 export const CardStepper = () => {
   const { Stepper, setStep } = useStepper();
+  const { setQueryParams } = useQueryParams();
+
+  useEffect(() => {
+    setQueryParams(null);
+  }, []);
+
   return (
     <Stepper>
       <Stepper.Step name={PAGES.CARD_LIST}>

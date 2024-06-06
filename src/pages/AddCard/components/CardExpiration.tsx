@@ -1,29 +1,54 @@
-import Input from '../../../components/Input/Input';
-import InputContainer from '../../../components/InputContainer/InputContainer';
+import { RefObject, forwardRef, useImperativeHandle } from 'react';
+import { Input } from '@components/Input';
+import useFocus from '@hooks/useFocus';
+import {
+  isValidMonth,
+  isValidYear,
+  EXPIRATION_MAX_LENGTH,
+} from '@utils/validator';
 import useCardExpiration from '../hooks/useCardExpiration';
 
-const CardExpiration = () => {
-  const { expiration, handleExpirationDate } = useCardExpiration();
+interface Props {
+  nextFieldRef: RefObject<HTMLInputElement>;
+}
 
-  return (
-    <InputContainer label='만료일' className='w-50'>
-      <div className='input-box'>
-        <Input
-          name='month'
+const CardExpiration = forwardRef<HTMLInputElement, Props>(
+  ({ nextFieldRef }, forwardedRef) => {
+    const { refs, expiration, handleExpirationDate } = useCardExpiration();
+    const monthInputRef = refs[0];
+
+    useImperativeHandle(forwardedRef, () => monthInputRef.current!);
+
+    useFocus({
+      isValid: isValidMonth(expiration[0]),
+      focusTargetRef: refs[1],
+    });
+
+    useFocus({
+      isValid: isValidYear(expiration[1]),
+      focusTargetRef: nextFieldRef,
+    });
+
+    return (
+      <Input.Container label='만료일' className='input-box w-50'>
+        <Input.InputBase
+          ref={refs[0]}
           placeholder='MM'
-          value={expiration.month}
-          onChange={handleExpirationDate}
+          isError={!isValidMonth(expiration[0])}
+          onInput={handleExpirationDate}
+          maxLength={EXPIRATION_MAX_LENGTH}
         />
         <span>/</span>
-        <Input
-          name='year'
+        <Input.InputBase
+          ref={refs[1]}
           placeholder='YY'
-          value={expiration.year}
-          onChange={handleExpirationDate}
+          isError={!isValidYear(expiration[1])}
+          onInput={handleExpirationDate}
+          maxLength={EXPIRATION_MAX_LENGTH}
         />
-      </div>
-    </InputContainer>
-  );
-};
+      </Input.Container>
+    );
+  }
+);
 
 export default CardExpiration;

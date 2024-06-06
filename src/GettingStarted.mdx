@@ -1,0 +1,53 @@
+import { Source, Meta } from '@storybook/blocks';
+
+<Meta title='GettingStarted' />
+
+# Payment Widget
+
+<br />
+
+## Getting Started
+
+### Installation
+
+<Source
+  language='bash'
+  code={`
+npm install @ingdaeho/payments
+yarn add @ingdaeho/payments
+pnpm add @ingdaeho/payments
+  `}
+/>
+
+### Requirements
+
+<Source
+  language='json'
+  code={`
+"node": ">=18"
+"peerDependencies": {
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0"
+}
+`}
+/>
+
+## Usage
+
+<Source
+  language='tsx'
+  code={`
+import { usePaymentWidget } from '@ingdaeho/payments';
+import '@ingdaeho/payments/styles.css';
+
+function Component() {
+  const { PaymentWidget, initPayment } = usePaymentWidget();
+
+  return (
+    <div>
+      <button onClick={initPayment}>start Payment</button>
+      <PaymentWidget />
+    </div>
+  )
+} 
+`} />

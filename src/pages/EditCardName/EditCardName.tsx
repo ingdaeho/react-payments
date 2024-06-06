@@ -1,4 +1,4 @@
-import { CardContext } from '../../App';
+import { CardContext } from '@machine/cardMachine';
 import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import CardNameInput from '../../components/CardNameInput/CardNameInput';
